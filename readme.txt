@@ -3,7 +3,7 @@ Contributors: morehawes
 Tags: Auction Affiliate, eBay Partner Network, ePN, widget, integration, items, listings, commission
 Requires at least: 2.7
 Tested up to: 3.8.1
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -178,3 +178,6 @@ I would like to hear from you - please feel free to <a href="http://www.auctiona
 
 = 1.0 =
 WordPress plugin released.
+
+= 1.1 =
+Fixed small settings bug
