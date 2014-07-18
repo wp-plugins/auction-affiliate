@@ -3,7 +3,7 @@ Contributors: morehawes
 Tags: Auction Affiliate, eBay Partner Network, ePN, widget, integration, items, listings, commission
 Requires at least: 2.7
 Tested up to: 3.8.1
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -181,3 +181,6 @@ WordPress plugin released.
 
 = 1.1 =
 Fixed small settings bug
+
+= 1.2 =
+Fixed bug with special characters in seller IDs. Thanks Jon for pointing this out to me.

@@ -1,6 +1,6 @@
 <?php
 /**
- * Auction Affiliate v1.0
+ * Auction Affiliate v1.03
  * http://www.auctionaffiliate.co
  *
  * By Joseph Hawes
@@ -19,15 +19,17 @@ class AuctionAffiliate {
 		$this->settings = array(
 			'html_output_id_prefix' => 'auction-affiliate-',
 			'html_output_prefix' => 'aa-',
-			'stylesheet_url' => 'http://www.auctionaffiliate.co/assets/theme/css/themes.css',			
+			'stylesheet_url' => 'http://www.auctionaffiliate.co/assets/theme/css/themes.css?v=1.03',			
 			'request_endpoint' => 'http://www.auctionaffiliate.co/items/get/',
+			'username_bad' => array('.', "\$", '!'),
+			'username_good' => array('__dot__', '__dollar__', '__bang__'),			
 			'request_parameter_groups' => array(
 				'keyword'  => array(
-	'name' => 'Keyword Query',
+	'name' => 'Your Query',
 	'description' => 'Start by entering your keyword query and your ePN campaign ID. This determines which items are pulled from eBay and ensures links to eBay are credited to you.'
 ),
 'affiliate'  => array(
-	'name' => 'Affiliate Details',
+	'name' => 'Affiliate Options',
 	'description' => 'Additional eBay Partner Network details. You can also choose which eBay site your items are pulled from and which site you link to.'
 ),
 'items'  => array(
@@ -39,7 +41,7 @@ class AuctionAffiliate {
 	'description' => 'How many items to display on your page, in which order and how they are styled.'
 ),
 'advanced'  => array(
-	'name' => 'Advanced',
+	'name' => 'Advanced Options',
 	'description' => 'Advanced item options such as category and specific seller filters. '
 )
 						
@@ -50,7 +52,7 @@ class AuctionAffiliate {
 	'id' => 'eKeyword',
 	'tip' => 'The keywords which determine which items to display, similar to a search on the actual eBay site. Accepts some advanced operators / punctuation. See documentation for more details.',
 	'group' => 'keyword',
-	'title' => 'Item Search Query'
+	'title' => 'Keyword Query'
 ),
 'eCampID'  => array(
 	'name' => 'eCampID',
@@ -143,14 +145,14 @@ class AuctionAffiliate {
 'eMinPrice'  => array(
 	'name' => 'eMinPrice',
 	'id' => 'eMinPrice',
-	'tip' => 'Only display items above this price.',
+	'tip' => 'Only display items above this price. The currency of the chosen eBay site will be used. Numbers only - no currency symbols required.',
 	'group' => 'items',
 	'title' => 'Minimum Price'
 ),
 'eMaxPrice'  => array(
 	'name' => 'eMaxPrice',
 	'id' => 'eMaxPrice',
-	'tip' => 'Only display items below this price.',
+	'tip' => 'Only display items below this price.  The currency of the chosen eBay site will be used. Numbers only - no currency symbols required.',
 	'group' => 'items',
 	'title' => 'Maximum Price'
 ),
@@ -205,7 +207,7 @@ class AuctionAffiliate {
 	'name' => 'eCount',
 	'id' => 'eCount',
 	'tip' => 'How many items to display on each page.',
-	'default' => '10',
+	'default' => '9',
 	'group' => 'display',
 	'title' => 'Items Per Page'
 ),
@@ -220,28 +222,28 @@ class AuctionAffiliate {
 'aWidth'  => array(
 	'name' => 'aWidth',
 	'id' => 'aWidth',
-	'tip' => 'If specified, any output will not exceed this width on your page.',
+	'tip' => 'If specified, any output will not exceed this width on your page. Can be expressed in pixels (e.g. 600px) or as a percentage (e.g. 90%)',
 	'group' => 'display',
 	'title' => 'Maximum Output Width'
 ),
 'aColourP'  => array(
 	'name' => 'aColourP',
 	'id' => 'aColourP',
-	'tip' => 'Specify the primary theme colour for better integration on your site.',
+	'tip' => 'Specify the primary theme colour for better integration on your site. This should be a hexadecimal colour (do not include leading # e.g. 11FF33)',
 	'group' => 'display',
 	'title' => 'Theme Primary Colour'
 ),
 'aColourS'  => array(
 	'name' => 'aColourS',
 	'id' => 'aColourS',
-	'tip' => 'Specify the secondary theme colour for better integration on your site.',
+	'tip' => 'Specify the secondary theme colour for better integration on your site. This should be a hexadecimal colour (do not include leading # e.g. 11FF33)',
 	'group' => 'display',
 	'title' => 'Theme Secondary Colour'
 ),
 'aColourB'  => array(
 	'name' => 'aColourB',
 	'id' => 'aColourB',
-	'tip' => 'Specify the background theme colour for better integration on your site.',
+	'tip' => 'Specify the background theme colour for better integration on your site. This should be a hexadecimal colour (do not include leading # e.g. 11FF33)',
 	'group' => 'display',
 	'title' => 'Theme Background Colour'
 ),
@@ -393,6 +395,9 @@ class AuctionAffiliate {
 		//User parameters	
 		foreach($this->request_parameters as $data_key => $data_value) {
 			switch($data_key) {
+			case 'eSellerId':
+				$data_value = str_replace($this->settings['username_bad'], $this->settings['username_good'], $data_value);
+				break;
 			case 'eKeyword':
 				//Make URL safe
 				$data_value = urlencode($data_value);
