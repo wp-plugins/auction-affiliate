@@ -1,9 +1,9 @@
 === Auction Affiliate ===
 Contributors: morehawes
 Tags: Auction Affiliate, eBay Partner Network, ePN, widget, integration, items, listings, commission
-Requires at least: 2.7
-Tested up to: 3.8.1
-Stable tag: 1.2
+Requires at least: 2.8
+Tested up to: 3.9.2
+Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -176,11 +176,19 @@ I would like to hear from you - please feel free to <a href="http://www.auctiona
 
 == Changelog ==
 
-= 1.0 =
-WordPress plugin released.
+= 2.0 =
+Major performance improvements - local feed caching and asset distribution 
+
+= 1.2 =
+Fixed bug with special characters in seller IDs. Thanks Jon for pointing this out to me.
 
 = 1.1 =
 Fixed small settings bug
 
-= 1.2 =
-Fixed bug with special characters in seller IDs. Thanks Jon for pointing this out to me.
+= 1.0 =
+WordPress plugin released.
+
+== Upgrade Notice ==
+
+= 2.0 =
+Feeds now load much faster, boosting page speed performance. Upgrade recommended.

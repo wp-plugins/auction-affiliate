@@ -1,6 +1,6 @@
 <?php
 /**
- * Auction Affiliate v1.03
+ * Auction Affiliate v1.1
  * http://www.auctionaffiliate.co
  *
  * By Joseph Hawes
@@ -11,7 +11,7 @@ class AuctionAffiliate {
 	private $request_parameters;
 	private $request;
 	private $response;
-	private $html_output;
+	private $output_html;
 	private $aHash;
 	private $hostname;
 		
@@ -19,7 +19,7 @@ class AuctionAffiliate {
 		$this->settings = array(
 			'html_output_id_prefix' => 'auction-affiliate-',
 			'html_output_prefix' => 'aa-',
-			'stylesheet_url' => 'http://www.auctionaffiliate.co/assets/theme/css/themes.css?v=1.03',			
+			'stylesheet_url' => 'http://assets-auctionaffiliate.s3.amazonaws.com/theme/css/themes-1.0.gz.css',			
 			'request_endpoint' => 'http://www.auctionaffiliate.co/items/get/',
 			'username_bad' => array('.', "\$", '!'),
 			'username_good' => array('__dot__', '__dollar__', '__bang__'),			
@@ -391,6 +391,11 @@ class AuctionAffiliate {
 	function build_request() {	
 		//Request endpoint
 		$url = $this->settings['request_endpoint'];
+		$url = trim($url, '/');
+		
+		if(! array_key_exists('ePage', $this->request_parameters)) {
+			$this->request_parameters['ePage'] = 1;
+		}
 		
 		//User parameters	
 		foreach($this->request_parameters as $data_key => $data_value) {
@@ -407,6 +412,13 @@ class AuctionAffiliate {
 		}
 
 		$this->request = $url;
+	}
+
+	/**
+	 * Return request
+	 */
+	function get_request() {
+		return $this->request;
 	}
 
 	/**
@@ -495,7 +507,7 @@ class AuctionAffiliate {
 		$this->do_request();
 		$this->build_html_output();
 		if($echo) {
-			$this->output_html();			
+			echo $this->output_html();			
 		} else {
 			return $this->get_html();						
 		}

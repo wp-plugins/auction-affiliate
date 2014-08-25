@@ -3,7 +3,7 @@
 Plugin Name: Auction Affiliate
 Plugin URI: http://www.auctionaffiliate.co
 Description: This plugin enables you to embed eBay items on your WordPress site and earn commissions through the your eBay Partner Network account.
-Version: 1.2
+Version: 2.0
 Author: Joseph Hawes
 Author URI: http://www.josephhawes.co.uk/
 License: GPL2
@@ -111,10 +111,10 @@ function aa_get_plugin_settings($AA) {
  * Load the stylesheet in the head element
  */
 function aa_load_stylesheet() {
-	global $post, $plugin_settings;
+	global $plugin_settings;
 	
 	//Get theme
-	$theme = get_post_meta($post->ID, 'aa_aTheme', true);
+//	$theme = get_post_meta($post->ID, 'aa_aTheme', true);
 	
 	//Build Stylesheet URL
 	$stylesheet_url = $plugin_settings['stylesheet_url'];
@@ -170,7 +170,26 @@ function aa_shortcode($shortcode_attrs){
 		$request_parameters['aKey'] = $options['aa_aKey'];
 	}
 
-	return $AA->embed($request_parameters, false);
+	$AA->set_request_parameters($request_parameters);
+	$AA->build_request();
+	
+	$request = $AA->get_request();
+	$cache_id = 'aa_' . md5($request);
+	
+	//Do we have a copy in the cache?
+	if(false === ($output_html = get_transient($cache_id))) {
+		//Run the request
+		$AA->do_request();
+
+		//Build HTML
+		$AA->build_html_output();		
+		
+		//Add HTML to cache
+		$output_html = $AA->get_html();
+		set_transient($cache_id, $output_html, HOUR_IN_SECONDS);		
+	}
+	
+	return $output_html;						
 }
 add_shortcode($plugin_settings['shortcode'], 'aa_shortcode');
 
