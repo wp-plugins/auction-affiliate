@@ -1,0 +1,90 @@
+#aa-custom-field-container #aa-custom-field-help {
+	float: right;
+	padding: 10px;
+	width: 200px;
+	border: 1px solid #DDDDDD;
+	background: #F9F9F9;
+}
+#aa-custom-field-container #aa-custom-field-help p {
+	margin: 0;
+}
+#aa-custom-field-container fieldset {
+	margin-bottom: 20px;
+}
+#aa-custom-field-container fieldset legend {
+	display: block;
+	padding: 7px;
+	width: 400px;
+	font-weight: bold;
+	font-size: 14px;
+	border: 1px solid #DDDDDD;
+	background: #F9F9F9;
+	border-radius: 5px;
+	cursor: pointer;
+}
+#aa-custom-field-container .parameter-group {
+	width: 400px;
+}
+#aa-custom-field-container label {
+	display: block;
+	padding: 3px;
+	float: left;
+	width: 200px;
+	font-weight: bold;
+}
+#aa-custom-field-container label a {
+	cursor: help;
+	text-decoration: none;
+}
+#aa-custom-field-container .control-group {
+	margin: 3px 0;
+	padding: 3px;
+	width: 400px;
+}
+#aa-custom-field-container input[type="text"] {
+	width: 180px;
+}
+#aa-custom-field-container select {
+	width: 180px;
+}
+#aa-custom-field-container .controls {}
+
+/* Individual Fields */
+#parameter-group-keyword label {
+	width: 160px;
+}
+#parameter-group-keyword input[type="text"] {
+	width: 220px;
+}
+/*
+#aa_eKeyword {
+	display: block;
+	clear: left;
+	width: 386px !important;
+}
+*/
+#aa_eMinPrice,
+#aa_eMaxPrice {
+	width: 80px;
+}
+
+/* Settings Page */
+#aa-options-container {
+	width: 600px;
+}
+#aa-options-container a.tip {
+	text-decoration: none;
+	cursor: help;
+}
+#aa-options-container select,
+#aa-options-container input[type="text"] {
+	width: 200px;
+}
+
+/* Help Popup */
+#aa-help-popup p {
+	font-size: 12px;
+}
+#aa-help-popup code {
+	font-size: 11px;
+}
