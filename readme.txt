@@ -1,6 +1,6 @@
 === Auction Affiliate ===
 Contributors: morehawes
-Tags: Auction Affiliate, eBay Partner Network, ePN, widget, integration, items, listings, commission
+Tags: Auction Affiliate, auctionaffiliate.co, eBay, eBay Partner Network, ePN, commission, campaign, custom id, affiliate, affiliates, earn, earnings, promote, partners, traffic, payment, paid, plugin, widget, widgets, embed, integrate, integration, listings, item, items, free, products, ad, ads, adverts, banner, banners, shop, shops, shopping, store, stores, advertise, advertising, on your own site, automatic, automatically, update, category, keywords, seller, user, username, link, links, developer, developers, images, pictures, international, US, UK, Canada, Australia, Belgium, Germany, France, Spain, Austria, Italy, Netherlands, Ireland, ebay.com, ebay.co.uk, ebay.ca, ebay.com.au, ebay.be, ebay.de, ebay.fr, ebay.at, ebay.it, ebay.nl, ebay.ie, ebay.pl, ebay.es
 Requires at least: 2.8
 Tested up to: 3.9.2
 Stable tag: 2.0
