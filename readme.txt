@@ -176,9 +176,8 @@ I would like to hear from you - please feel free to <a href="http://www.auctiona
 == Changelog ==
 
 = 2.1 =
-WordPress 4.0 support, as well as the following bug fixes and improvements:
-
-* WordPress local cache bug fix
+* WordPress 4.0 support
+* Local cache bug fix
 * Improved feed retrieval using cURL where file_get_contents() is not supported. Thanks Dmitry for pointing this out to me.
 * Fixed bug where the % symbol in the width option caused an error. Thanks Dmitry for pointing this out to me.
 * Small user interface improvements
