@@ -1,6 +1,6 @@
 <?php
 /**
- * Auction Affiliate v1.1
+ * Auction Affiliate v1.2
  * http://www.auctionaffiliate.co
  *
  * By Joseph Hawes
@@ -14,6 +14,7 @@ class AuctionAffiliate {
 	private $output_html;
 	private $aHash;
 	private $hostname;
+	private $error;
 		
 	function __construct() {
 		$this->settings = array(
@@ -67,19 +68,19 @@ class AuctionAffiliate {
 	'tip' => 'The eBay site from which items will be displayed. This also determines which site item links will point to.',
 	'type' => 'select',
 	'options' => array(
-		'1' => 'eBay US',
-		'2' => 'eBay IE',
-		'3' => 'eBay AT',
-		'4' => 'eBay AU',
-		'5' => 'eBay BE',
-		'7' => 'eBay CA',
-		'10' => 'eBay FR',
-		'11' => 'eBay DE',
-		'12' => 'eBay IT',
-		'13' => 'eBay ES',
-		'14' => 'eBay CH',
-		'15' => 'eBay UK',
-		'16' => 'eBay NL'
+		'1' => 'eBay United States',
+		'2' => 'eBay Ireland',
+		'3' => 'eBay Austria',
+		'4' => 'eBay Australia',
+		'5' => 'eBay Belgium',
+		'7' => 'eBay Canada',
+		'10' => 'eBay France',
+		'11' => 'eBay Germany',
+		'12' => 'eBay Italy',
+		'13' => 'eBay Spain',
+		'14' => 'eBay Switzerland',
+		'15' => 'eBay United Kingdom',
+		'16' => 'eBay Netherlands'
 	),
 	'default' => '1',
 	'group' => 'affiliate',
@@ -298,6 +299,7 @@ class AuctionAffiliate {
 						
 			)
 		);
+		$this->error = false;
 		$this->set_hostname();		
 		$this->check_hostname_allowed();
 	}
@@ -374,8 +376,11 @@ class AuctionAffiliate {
 		}
 		$params_out['aClientHost'] = $this->hostname;
 
-		//Client IP - used for Geographical IP Targeting 
-		$params_out['aClientIP'] = $_SERVER['REMOTE_ADDR'];
+		//Are we Geographical IP Targeting?
+		if(array_key_exists('aGeo', $params_out) && $params_out['aGeo'] == 'true') {
+			//Then add Client IP
+			$params_out['aClientIP'] = $_SERVER['REMOTE_ADDR'];		
+		}
 
 		$this->request_parameters = $params_out;
 		//Hash URL data to get aHash
@@ -400,6 +405,9 @@ class AuctionAffiliate {
 		//User parameters	
 		foreach($this->request_parameters as $data_key => $data_value) {
 			switch($data_key) {
+			case 'aWidth':
+				$data_value = str_replace('%', '', $data_value);
+				break;
 			case 'eSellerId':
 				$data_value = str_replace($this->settings['username_bad'], $this->settings['username_good'], $data_value);
 				break;
@@ -424,9 +432,38 @@ class AuctionAffiliate {
 	/**
 	 * Run the request
 	 */
-	function do_request() {		
+	function do_request() {			
+		//Try file_get_contents
 		if(! $this->response = @file_get_contents($this->request)) {
-			die('<b>ERROR</b> Request error');
+			//That didn't work - let's try cURL (if it's installed)
+			if(function_exists('curl_version')) {
+				//Setup call
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $this->request);
+				curl_setopt($ch, CURLOPT_HEADER, 0);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		
+				//Run it
+				curl_exec($ch);
+
+				//cURL success?
+				if(! curl_errno($ch)) {
+					//Get the info
+					$info = curl_getinfo($ch);
+			
+					//HTTP success?
+					if($info['http_code'] == '200') {
+						$this->response = curl_multi_getcontent($ch);
+					} else {
+						$this->error = 'Error contacting server (!200)';
+					}
+				} else {
+					$this->error = 'Error contacting server (cURL error)';				
+				}
+				curl_close($ch);				
+			} else {
+				$this->error = 'Unable to make request (FGC + cURL fail)';			
+			}
 		}
 	}
 	
@@ -443,41 +480,51 @@ class AuctionAffiliate {
 	 * Run the request
 	 */
 	function build_html_output() {	
-		//If we are paging
-		if($this->get_pagination_page()) {
-			$prev_page = $this->request_parameters['ePage'] - 1;
-			$next_page = $this->request_parameters['ePage'] + 1;					
-		} else {
-			$prev_page = false;
-			$next_page = 2;
-		}
-
-		//Pagination
-		if($prev_page) {
-			$page_prev_url = $this->add_query_arg(false, array('cPage' => $prev_page, 'aHash' => $this->aHash));		
-			$page_prev_url .= '#' . $this->settings['html_output_id_prefix'] . $this->aHash;
-		} else {
-			$page_prev_url = '#" style="display:none';
-		}
-		$page_next_url = $this->add_query_arg(false, array('cPage' => $next_page, 'aHash' => $this->aHash));
-		
-		//Add hash hash
-		$page_next_url .= '#' . $this->settings['html_output_id_prefix'] . $this->aHash;
-		
 		//Width?
 		$width = '';
 		if(array_key_exists('aWidth', $this->request_parameters)) {
-			$width = ' style="width:' . $this->request_parameters['aWidth'] . ';margin:auto"';
+			$width = $this->request_parameters['aWidth'];
+			if(is_numeric($width)) {
+				$width .= '%';
+			}
+			$width = ' style="width:' . $width . ';margin:auto"';
 		}
-		
+
 		//Build HTML output
 		$out = '<div id="' . $this->settings['html_output_id_prefix'] . $this->aHash  . '"' . $width . '>';
 
-		//Edit Response
-		//Pagination
-		$resp = str_replace($this->settings['html_output_prefix'] . 'prev" href="#"', $this->settings['html_output_prefix'] . 'prev" href="' . $page_prev_url . '"', $this->response);
-		$resp = str_replace($this->settings['html_output_prefix'] . 'next" href="#"', $this->settings['html_output_prefix'] . 'next" href="' . $page_next_url . '"', $resp);		
-		$out .= $resp;
+		//No errors?
+		if(! $this->error) {
+			//If we are paging
+			if($this->get_pagination_page()) {
+				$prev_page = $this->request_parameters['ePage'] - 1;
+				$next_page = $this->request_parameters['ePage'] + 1;					
+			} else {
+				$prev_page = false;
+				$next_page = 2;
+			}
+	
+			//Pagination
+			if($prev_page) {
+				$page_prev_url = $this->add_query_arg(false, array('cPage' => $prev_page, 'aHash' => $this->aHash));		
+				$page_prev_url .= '#' . $this->settings['html_output_id_prefix'] . $this->aHash;
+			} else {
+				$page_prev_url = '#" style="display:none';
+			}
+			$page_next_url = $this->add_query_arg(false, array('cPage' => $next_page, 'aHash' => $this->aHash));
+			
+			//Add hash hash
+			$page_next_url .= '#' . $this->settings['html_output_id_prefix'] . $this->aHash;
+			
+			//Edit Response
+			//Pagination
+			$resp = str_replace($this->settings['html_output_prefix'] . 'prev" href="#"', $this->settings['html_output_prefix'] . 'prev" href="' . $page_prev_url . '"', $this->response);
+			$resp = str_replace($this->settings['html_output_prefix'] . 'next" href="#"', $this->settings['html_output_prefix'] . 'next" href="' . $page_next_url . '"', $resp);		
+			$out .= $resp;	
+		//We have an error :'(
+		} else {
+			$out .= $this->get_error_output();
+		}
 
 		$out .= '</div>';
 		
@@ -505,6 +552,7 @@ class AuctionAffiliate {
 		$this->set_request_parameters($request_params);
 		$this->build_request();
 		$this->do_request();
+		
 		$this->build_html_output();
 		if($echo) {
 			echo $this->output_html();			
@@ -529,7 +577,18 @@ class AuctionAffiliate {
 	function check_hostname_allowed() {
 		//Check for "ebay" and "paypal"
 		if(strpos($this->hostname, 'ebay') !== false || strpos($this->hostname, 'paypal') !== false) {
-			die('<b>ERROR</b> Hostname contains a disallowed keyword.');			
+			$this->error = 'Hostname contains a disallowed keyword.';			
+		}
+	}
+
+	/**
+	 * Build error message output
+	 */		
+	function get_error_output() {
+		if($this->error !== false) {
+			return '<pre><b>Auction Affiliate Error</b> &ndash; ' . $this->error . '</pre>';
+		} else {
+			return false;
 		}
 	}
 }

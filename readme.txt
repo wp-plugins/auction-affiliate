@@ -2,8 +2,8 @@
 Contributors: morehawes
 Tags: Auction Affiliate, auctionaffiliate.co, eBay, eBay Partner Network, ePN, commission, campaign, custom id, affiliate, affiliates, earn, earnings, promote, partners, traffic, payment, paid, plugin, widget, widgets, embed, integrate, integration, listings, item, items, free, products, ad, ads, adverts, banner, banners, shop, shops, shopping, store, stores, advertise, advertising, on your own site, automatic, automatically, update, category, keywords, seller, user, username, link, links, developer, developers, images, pictures, international, US, UK, Canada, Australia, Belgium, Germany, France, Spain, Austria, Italy, Netherlands, Ireland, ebay.com, ebay.co.uk, ebay.ca, ebay.com.au, ebay.be, ebay.de, ebay.fr, ebay.at, ebay.it, ebay.nl, ebay.ie, ebay.pl, ebay.es
 Requires at least: 2.8
-Tested up to: 3.9.2
-Stable tag: 2.0
+Tested up to: 4.0
+Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -173,8 +173,16 @@ I would like to hear from you - please feel free to <a href="http://www.auctiona
 7. Specify default options to save you entering them on every page
 8. Help popup
 
-
 == Changelog ==
+
+= 2.1 =
+WordPress 4.0 support, as well as the following bug fixes and improvements:
+
+* WordPress local cache bug fix
+* Improved feed retrieval using cURL where file_get_contents() is not supported. Thanks Dmitry for pointing this out to me.
+* Fixed bug where the % symbol in the width option caused an error. Thanks Dmitry for pointing this out to me.
+* Small user interface improvements
+* Improved error reporting
 
 = 2.0 =
 Major performance improvements - local feed caching and asset distribution 
@@ -192,3 +200,6 @@ WordPress plugin released.
 
 = 2.0 =
 Feeds now load much faster, boosting page speed performance. Upgrade recommended.
+
+= 2.1 =
+WordPress 4.0 support, caching bug fix. Upgrade recommended.
