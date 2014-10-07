@@ -82,9 +82,106 @@
 }
 
 /* Help Popup */
+#TB_window {
+	width: 630px !important;
+}
+#aa-help-popup {
+	width: 580px;
+}
 #aa-help-popup p {
 	font-size: 12px;
 }
 #aa-help-popup code {
 	font-size: 11px;
+}
+#aa-help-popup pre {
+	padding: 10px;
+	width: 560px;
+	overflow-x: scroll;
+	background: #f5f5f5;
+	border: 1px solid #999;
+}
+
+/* Custom fields tabs */
+ul#aa-tab-links {
+	list-style-type: none;
+	border-bottom: 1px solid #DDDDDD;	
+}
+ul#aa-tab-links li {
+	display: inline-block;
+}
+ul#aa-tab-links li a {
+	padding: 7px 12px 6px 12px;
+	color: #444;
+	text-decoration: none;
+	border: 1px solid #DDDDDD;
+	border-bottom: none;
+	background: #F9F9F9;
+}
+ul#aa-tab-links li:first-child {
+	margin-left: 10px;
+}
+ul#aa-tab-links li a:hover,
+ul#aa-tab-links li a.active {
+	padding-bottom: 7px;
+	background: #fff;
+}
+
+/* Widgets */
+.aa-widget-container fieldset {
+	margin: 10px 0;	
+}
+.aa-widget-container fieldset legend,
+#aa-custom-field-container fieldset legend {
+	display: block;
+	padding: 7px;
+	width: 400px;
+	font-weight: bold;
+	font-size: 14px;
+	border: 1px solid #DDDDDD;
+	background: #F9F9F9;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.aa-widget-container fieldset legend {
+	width: 95%;
+}
+#aa-custom-field-container .aa-parameter-group {
+	width: 400px;
+}
+.aa-widget-container .aa-parameter-group-content p {
+	margin: 10px 0 0 0;
+}
+.aa-widget-container label,
+#aa-custom-field-container label {
+	display: block;
+	padding: 3px;
+	float: left;
+	width: 200px;
+	font-weight: bold;
+}
+.aa-widget-container label {
+	width: 70%;	
+}
+.aa-widget-container label a,
+#aa-custom-field-container label a {
+	cursor: help;
+	text-decoration: none;
+}
+.aa-widget-container .control-group,
+#aa-custom-field-container .control-group {
+	margin: 3px 0;
+	padding: 3px;
+	width: 400px;
+}
+.aa-widget-container .control-group {
+	width: 100%;
+}
+.aa-widget-container input[type="text"],
+#aa-custom-field-container input[type="text"] {
+	width: 180px;
+}
+.aa-widget-container select,
+#aa-custom-field-container select {
+	width: 180px;
 }
