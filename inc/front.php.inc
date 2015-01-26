@@ -162,6 +162,6 @@ function aa_process_shortcode($shortcode_params = false, $widget_params = false)
 	//Get the parameters for request
 	$request_parameters = aa_get_parameters($shortcode_params, $widget_params, $tool_key);
 	
-	echo aa_output_html($request_parameters, $tool_key);
+	return aa_output_html($request_parameters, $tool_key);
 }
 add_shortcode($aa_settings['shortcode'], 'aa_process_shortcode');

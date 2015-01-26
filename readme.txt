@@ -3,7 +3,7 @@ Contributors: morehawes
 Tags: Auction Affiliate, auctionaffiliate.co, eBay, eBay Partner Network, ePN, commission, campaign, custom id, affiliate, affiliates, earn, earnings, promote, partners, traffic, payment, paid, plugin, widget, widgets, embed, integrate, integration, listings, item, items, free, products, ad, ads, adverts, banner, banners, shop, shops, shopping, store, stores, advertise, advertising, on your own site, automatic, automatically, update, category, keywords, seller, user, username, link, links, developer, developers, images, pictures, international, US, UK, Canada, Australia, Belgium, Germany, France, Spain, Austria, Italy, Netherlands, Ireland, ebay.com, ebay.co.uk, ebay.ca, ebay.com.au, ebay.be, ebay.de, ebay.fr, ebay.at, ebay.it, ebay.nl, ebay.ie, ebay.pl, ebay.es
 Requires at least: 2.8
 Tested up to: 4.1
-Stable tag: 3.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -201,6 +201,9 @@ I would like to hear from you - please feel free to <a href="http://www.auctiona
 
 == Changelog ==
 
+= 3.0.1 =
+Fixed bug where Auction Affiliate items would always output at top of page for some users. Thanks to cjwinternet for pointing this out to me.
+
 = 3.0 =
 This is a major update which focuses on page load performance improvements:
 
@@ -242,6 +245,9 @@ Fixed small settings bug
 WordPress plugin released.
 
 == Upgrade Notice ==
+
+= 3.0.1 =
+Bug fix for v3.0 release. Upgrade highly recommended.
 
 = 3.0 =
 This is a major update which focuses on load performance. Upgrade recommended.
