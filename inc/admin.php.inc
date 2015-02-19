@@ -180,6 +180,7 @@ function aa_create_custom_field_form() {
  * Create the custom fields inputs
  */
 function aa_create_param_input($field, $count = false, $set_value = false) {
+	$out = '';
 	
 	//Do we have a default?
 	if(! array_key_exists('default', $field)) {
@@ -189,19 +190,28 @@ function aa_create_param_input($field, $count = false, $set_value = false) {
 	//Container
 	$alt = ($count !== false && $count % 2) ? ' alt' : '';
 	$out .= '<div class="control-group ' . aa_unprefix($field['id'], '-') . '-container' . $alt . '">' . "\n";
+
+/*
 	//Required
 	$required = '';
-	if($param['parameter_required']) {
+	if($field['parameter_required']) {
 		$required = ' <span class="required">*</span>';
 	}
+*/
+
 	//Tip
 	$tip = '';
 	if($field['tip']) {
 		$tip = ' <a class="tip" title="' . $field['tip'] . '" href="#" onclick="return false;">?</a>';
 	}
 	//Label
-	$out .= '	<label class="control-label" for="' . $field['name'] . '">' . $field['title'] . $required . $tip .  '</label>' . "\n";
+	$out .= '	<label class="control-label" for="' . $field['name'] . '">' . $field['title'] . $tip .  '</label>' . "\n";
 	$out .= '	<div class="controls">' . "\n";				
+	
+	//Default type
+	if(! array_key_exists('type', $field)) {
+		$field['type'] = 'text';
+	}
 	
 	switch($field['type']) {
 		case 'select' :
