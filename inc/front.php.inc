@@ -92,21 +92,32 @@ function aa_output_html($request_parameters = false, $tool_key = false){
 	if($tool_key == 'lister') {
 		$aHash = md5(serialize($request_parameters));
 		$request_parameters['aHash'] = $aHash;
-		
-		$output_html = '';
-		
-		//Width?
+
 		$width = '';
-		if(array_key_exists('aWidth', $request_parameters)) {
-			$width = $request_parameters['aWidth'];
-			if(is_numeric($width)) {
-				$width .= '%';
+		$output_html = '';
+
+		//Edit some user parameters	
+		foreach($request_parameters as $data_key => &$data_value) {
+			switch($data_key) {
+				//Add % symbol
+				case 'aWidth':
+					$width = $data_value;
+					if(is_numeric($width)) {
+						$width .= '%';
+					}
+					$width = ' style="width:' . $width . ';margin:auto"';
+					break;
+				//Remove hash
+				case 'aColourP':
+				case 'aColourS':
+				case 'aColourB':
+					$data_value = str_replace('#',  '', $data_value);
+					break;
 			}
-			$width = ' style="width:' . $width . ';margin:auto"';
 		}
-	
+
 		$output_html .= '<div class="aa-client" id="aa-' . $aHash . '"' . $width;
-	
+		
 		foreach($request_parameters as $param_key => $param_value) {
 			//Make lowercase
 			$output_html .= ' data-' . strtolower($param_key) . '="' . $param_value . '"';

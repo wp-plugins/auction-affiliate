@@ -3,7 +3,7 @@ Contributors: morehawes
 Tags: Auction Affiliate, auctionaffiliate.co, eBay, eBay Partner Network, ePN, commission, campaign, custom id, affiliate, affiliates, earn, earnings, promote, partners, traffic, payment, paid, plugin, widget, widgets, embed, integrate, integration, listings, item, items, free, products, ad, ads, adverts, banner, banners, shop, shops, shopping, store, stores, advertise, advertising, on your own site, automatic, automatically, update, category, keywords, seller, user, username, link, links, developer, developers, images, pictures, international, US, UK, Canada, Australia, Belgium, Germany, France, Spain, Austria, Italy, Netherlands, Ireland, ebay.com, ebay.co.uk, ebay.ca, ebay.com.au, ebay.be, ebay.de, ebay.fr, ebay.at, ebay.it, ebay.nl, ebay.ie, ebay.pl, ebay.es
 Requires at least: 2.8
 Tested up to: 4.1
-Stable tag: 3.0.2
+Stable tag: 3.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -200,6 +200,9 @@ I would like to hear from you - please feel free to <a href="http://www.auctiona
 11. Help popup
 
 == Changelog ==
+
+= 3.0.3 =
+Fixed an issue where the feed would fail if the hash (#) character was included in colour options. Thanks to Mares for bringing this to my attention.
 
 = 3.0.2 =
 Fixed some small issues causing PHP notices on environments with low error thresholds. Thanks to Mares for pointing this out to me.
