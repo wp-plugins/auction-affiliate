@@ -92,10 +92,12 @@ jQuery(document).ready(function() {
 
 jQuery(document).ajaxSuccess(function(e, xhr, settings) {
 	var widget_ids = ['aa_lister_widget', 'aa_banner_widget'];
-	for(i in widget_ids) {
-		if(settings.data.search('action=save-widget') != -1 && settings.data.search('id_base=' + widget_ids[i]) != -1) {
-			aa_setup_parameter_groups();
-			aa_setup_widget_theme_dropdown();			
-		}		
+	if(typeof settings.data !== 'undefined') {
+		for(i in widget_ids) {
+			if(settings.data.search('action=save-widget') != -1 && settings.data.search('id_base=' + widget_ids[i]) != -1) {
+				aa_setup_parameter_groups();
+				aa_setup_widget_theme_dropdown();			
+			}		
+		}
 	}
 });
