@@ -517,3 +517,8 @@ function aa_get_option($option_key) {
 		return false;		
 	}
 }
+
+function an_admin_notice() {
+  echo '<div class="update-nag">The <b>Auction Affiliate</b> service is being shut down on the <b>20<sup>th</sup> May 2015</b>. Please migrate away from this plugin before then to avoid disruption (<a target="_blank" href="http://www.auctionaffiliate.co">more information here</a>)</div>'; 
+}
+add_action('admin_notices', 'an_admin_notice'); 

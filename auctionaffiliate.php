@@ -3,7 +3,7 @@
 Plugin Name: Auction Affiliate
 Plugin URI: http://www.auctionaffiliate.co
 Description: This plugin enables you to embed eBay items on your WordPress site and earn commissions through the your eBay Partner Network account.
-Version: 3.0.4
+Version: 3.1
 Author: Joseph Hawes
 Author URI: http://www.josephhawes.co.uk/
 License: GPL2

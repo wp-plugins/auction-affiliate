@@ -7,7 +7,7 @@
  */
 $aa_settings = array(
 	'plugin_name' => 'Auction Affiliate',
-	'plugin_version' => '3.0.4',
+	'plugin_version' => '3.1',
 	'request_endpoint_lister' => 'http://www.auctionaffiliate.co/client/js',
 	'request_endpoint_banner' => 'http://www.auctionaffiliate.co/items/get/',
 	'shortcode' => 'auction-affiliate',
